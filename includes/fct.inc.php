@@ -15,7 +15,7 @@
  */
 
 /**
- * Teste si un quelconque visiteur est connecté
+ * Teste si un quelconque utilisateur est connecté
  *
  * @return vrai ou faux
  */
@@ -25,19 +25,43 @@ function estConnecte()
 }
 
 /**
- * Enregistre dans une variable session les infos d'un visiteur
+ * Retourne le statut de l'utilisateur connect� s'il est un visiteur
+ * 
+ * @return string
+ */
+ function estVisiteurConnecte() {
+     if (estConnecte()){
+         return ($_SESSION['statut'] == 'visiteur'); 
+     }
+ }
+
+ /**
+  * Retourne le statut de l'utilisateur connect� s'il est un comptable
+  *
+  * @return string
+  */
+ function estComptableConnecte() {
+     if (estConnecte()){
+         return ($_SESSION['statut'] == 'comptable');
+     }
+ }
+ 
+/**
+ * Enregistre dans une variable session les infos d'un utilisateur
  *
- * @param String $idVisiteur ID du visiteur
- * @param String $nom        Nom du visiteur
- * @param String $prenom     Prénom du visiteur
+ * @param String $idVisiteur ID de l'utilisateur
+ * @param String $nom        Nom de l'utilisateur
+ * @param String $prenom     Prénom de l'utilisateur
+ * @param String $statut     Statut de l'utilisateur
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter($idUtilisateur, $nom, $prenom, $statut)
 {
-    $_SESSION['idVisiteur'] = $idVisiteur;
+    $_SESSION['idUtilisateur'] = $idUtilisateur;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['statut'] = $statut;
 }
 
 /**
