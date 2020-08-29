@@ -6,12 +6,7 @@
  *
  * @category  PPE
  * @package   GSB
- * @author    Cheri Bibi - Réseau CERTA <contact@reseaucerta.org>
- * @author    José GIL <jgil@ac-nice.fr>
- * @copyright 2017 Réseau CERTA
- * @license   Réseau CERTA
- * @version   GIT: <0>
- * @link      http://www.php.net/manual/fr/book.pdo.php PHP Data Objects sur php.net
+ * @author    Gustave JULIEN
  */
 
 /**
@@ -21,23 +16,48 @@
  */
 function estConnecte()
 {
-    return isset($_SESSION['idVisiteur']);
+    return isset($_SESSION['idUtilisateur']);
 }
 
 /**
- * Enregistre dans une variable session les infos d'un visiteur
+ * Enregistre dans une variable session les infos d'un utilisateur
  *
- * @param String $idVisiteur ID du visiteur
- * @param String $nom        Nom du visiteur
- * @param String $prenom     Prénom du visiteur
+ * @param String $idVisiteur ID de utilisateur
+ * @param String $nom        Nom de utilisateur
+ * @param String $prenom     Prénom de utilisateur
+ * @param String $statut     Statut de utilisateur
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter($idUtilisateur, $nom, $prenom, $statut)
 {
-    $_SESSION['idVisiteur'] = $idVisiteur;
+    $_SESSION['idUtilisateur'] = $idUtilisateur;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['statut'] = $statut;
+}
+
+/**
+ * retourne le statut=visiteur si il est connecté
+ * @return vrai ou faux
+ */
+function estVisiteurConnecte()
+{
+    if (estConnecte() && $_SESSION['statut']== 'visiteur'){
+        return (true);
+    }
+}
+
+/**
+ * retourne le statut=comptable si il est connecté
+ * @return vrai ou faux
+ */
+function estComptableConnecte()
+{
+    if (estConnecte() && $_SESSION['statut']== 'comptable'){
+        return (true);
+    }
+    
 }
 
 /**
