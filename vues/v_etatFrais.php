@@ -13,9 +13,76 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
+
+$uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);//Verifie le contenu de uc
+if ($uc=='etatFrais'){   //si c un visiteur alors le fond est bleu
 ?>
 <hr>
-<div class="panel panel-primary">
+<div class="panel panel-primary">     
+<?php
+}else{ //sinon le fond est orange
+?>
+<form action="index.php?uc=suivreFrais&action=rembourserFrais" 
+              method="post" role="form">
+    
+   <div class="col-md-4">
+        <?php//Liste déroulante des visiteurs?>
+        <div class="form-group" style="display: inline-block">
+            <label for="lstVisiteurs" accesskey="n">Visiteur : </label>
+            <select id="lstVisiteurs" name="lstVisiteurs" class="form-control">
+                <?php
+                foreach ($lesVisiteurs as $unVisiteur) {
+                    $id = $unVisiteur['id'];
+                    $nom = $unVisiteur['nom'];
+                    $prenom = $unVisiteur['prenom'];
+                    if ($id == $visiteurASelectionner) {
+                        ?>
+                        <option selected value="<?php echo $id ?>">
+                            <?php echo $nom . ' ' . $prenom ?> </option>
+                        <?php
+                    } else {
+                        ?>
+                        <option value="<?php echo $id ?>">
+                            <?php echo $nom . ' ' . $prenom ?> </option>
+                        <?php
+                    }
+                }
+                ?>    
+
+            </select>
+        </div>
+           
+        <?php//liste déroulante des mois?>          
+        &nbsp;<div class="form-group" style="display: inline-block">
+            <label for="lstMois" accesskey="n">Mois : </label>
+            <select id="lstMois" name="lstMois" class="form-control">
+                <?php
+                foreach ($lesMois as $unMois) {
+                    $mois = $unMois['mois'];
+                    $numAnnee = $unMois['numAnnee'];
+                    $numMois = $unMois['numMois'];
+                    if ($mois == $moisASelectionner) {
+                        ?>
+                        <option selected value="<?php echo $mois ?>">
+                            <?php echo $numMois . '/' . $numAnnee ?> </option>
+                        <?php
+                    } else {
+                        ?>
+                        <option value="<?php echo $mois ?>">
+                            <?php echo $numMois . '/' . $numAnnee ?> </option>
+                        <?php
+                    }
+                }
+                ?>    
+
+            </select>
+        </div>
+    </div> <br><br><br><br>
+    
+    <div class="panel panel-primary-c"> 
+<?php
+}
+?>
     <div class="panel-heading">Fiche de frais du mois 
         <?php echo $numMois . '-' . $numAnnee ?> : </div>
     <div class="panel-body">
@@ -71,3 +138,12 @@
         ?>
     </table>
 </div>
+    
+<?php
+if($uc=='suivreFrais' && $lesInfosFicheFrais['libEtat']=='Validée et mise en paiement'){
+?>
+    <input style="border-color: #ff6f02;background-color: #ff6f02;"id="ok" 
+           type="submit" value="Mise en paiement" class="btn btn-success" 
+            role="button">
+    
+<?php } ?>

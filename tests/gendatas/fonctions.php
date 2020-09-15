@@ -5,14 +5,9 @@
  *
  * PHP Version 7
  *
- * @category  PPE
+* @category  PPE
  * @package   GSB
- * @author    Réseau CERTA <contact@reseaucerta.org>
- * @author    José GIL <jgil@ac-nice.fr>
- * @copyright 2017 Réseau CERTA
- * @license   Réseau CERTA
- * @version   GIT: <0>
- * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
+ * @author    Gustave JULIEN
  */
 
 /**
@@ -353,7 +348,7 @@ function majFicheFrais($pdo)
         $mois = $uneFicheFrais['mois'];
         $req = 'select sum(montant) as cumul from lignefraishorsforfait '
             . "where lignefraishorsforfait.idvisiteur = '$idVisiteur' "
-            . "and lignefraishorsforfait.mois = '$mois' ";
+            . "and ligneFraisHorsForfait.mois = '$mois' ";
         $res = $pdo->query($req);
         $ligne = $res->fetch();
         $cumulMontantHF = $ligne['cumul'];

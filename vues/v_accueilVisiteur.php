@@ -4,7 +4,7 @@
  *
  * PHP Version 7
  *
- * @category  PPE
+* @category  PPE
  * @package   GSB
  * @author    Gustave JULIEN
  */
@@ -13,7 +13,7 @@
     <h2>
         Gestion des frais<small> - Visiteur : 
             <?php 
-            echo $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . ' ' . $_SESSION['statut']
+            echo $_SESSION['prenom'] . ' ' . $_SESSION['nom']
             ?></small>
     </h2>
 </div>

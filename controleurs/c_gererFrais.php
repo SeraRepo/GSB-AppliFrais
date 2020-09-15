@@ -6,18 +6,13 @@
  *
  * @category  PPE
  * @package   GSB
- * @author    Réseau CERTA <contact@reseaucerta.org>
- * @author    José GIL <jgil@ac-nice.fr>
- * @copyright 2017 Réseau CERTA
- * @license   Réseau CERTA
- * @version   GIT: <0>
- * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
+ * @author    Gustave JULIEN
  */
 
-$idVisiteur = $_SESSION['idVisiteur'];
+$idVisiteur = $_SESSION['idUtilisateur'];
 $mois = getMois(date('d/m/Y'));
-$numAnnee = substr($mois, 0, 4);
-$numMois = substr($mois, 4, 2);
+$numAnnee = substr($mois, 0, 4);// permet de recuperer les 4 premiers caracteres
+$numMois = substr($mois, 4, 2);// permet de recuperer a partir du 4eme caractere, les 2 premiers
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'saisirFrais':
@@ -38,6 +33,7 @@ case 'validerCreationFrais':
     $dateFrais = filter_input(INPUT_POST, 'dateFrais', FILTER_SANITIZE_STRING);
     $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
     $montant = filter_input(INPUT_POST, 'montant', FILTER_VALIDATE_FLOAT);
+    
     valideInfosFrais($dateFrais, $libelle, $montant);
     if (nbErreurs() != 0) {
         include 'vues/v_erreurs.php';

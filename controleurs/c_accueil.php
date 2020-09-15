@@ -8,13 +8,13 @@
  * @package   GSB
  * @author    Gustave JULIEN
  */
-$estVisiteurConnecte = estVisiteurConnecte();
-$estComptableConnecte = estComptableConnecte();
+$estVisiteurConnecte= estVisiteurConnecte();
+$estComptableConnecte= estComptableConnecte();
 
 if ($estVisiteurConnecte) {
     include 'vues/v_accueilVisiteur.php';
-} else if ($estComptableConnecte){
+} elseif ($estComptableConnecte){
     include 'vues/v_accueilComptable.php';
-} else {
+} else{
     include 'vues/v_connexion.php';
 }
