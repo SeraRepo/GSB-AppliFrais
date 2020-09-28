@@ -99,6 +99,12 @@
                                   Suivre le paiement des fiches de frais
                               </a>
                           </li>
+                          <li <?php if ($uc == 'analyserFrais') { ?>class="active"<?php } ?>>
+                              <a  style="color: orange" href="index.php?uc=analyserFrais&action=selectionnerMetM">
+                                  <span class="glyphicon glyphicon-question-sign"></span>
+                                  Analyser les fiches de frais
+                              </a>
+                          </li>
                           <li
                           <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                               <a  style="color: orange" href="index.php?uc=deconnexion&action=demandeDeconnexion">

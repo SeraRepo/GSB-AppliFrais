@@ -46,5 +46,7 @@ case 'validerFrais':
 case 'suivreFrais':
     include 'controleurs/c_suivrePaiement.php';
     break;
+case 'analyserFrais':
+    include 'controleurs/c_analyserFrais.php';
 }
 require 'vues/v_pied.php';

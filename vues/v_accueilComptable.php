@@ -36,7 +36,11 @@
                         <a href="index.php?uc=suivreFrais&action=selectionnerVetM"
                            class="btn btn-primary-c btn-lg" role="button">
                             <span class="glyphicon glyphicon-euro"></span>
-                            <br>Suivre le paiement des fiches de frais</a>
+                            <br>Suivre le paiement des fiches de frais</a>            
+                        <a href="index.php?uc=annalyserFrais&action=selectionnerMetM"
+                           class="btn btn-primary-c btn-lg" role="button">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                            <br>Analyser les fiches de frais</a> 
                     </div>
                 </div>
             </div>

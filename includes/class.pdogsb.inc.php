@@ -728,6 +728,82 @@ class PdoGsb
         } 
         return $lesMois;
     }
+    
+    /**
+     * Retourne le nombre de fiches de frais
+     * 
+     * @return une valeur correspondant à ce nombre
+     */
+    public function countFiches()
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT COUNT(*)'
+            . 'FROM fichefrais'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    
+    /**
+     * Retourne le montant total des fiches de frais
+     * 
+     * @return une valeur correspondant à ce montant
+     */
+    public function montantTotalFichesFrais()
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT SUM(montantvalide)'
+            . 'FROM fichefrais'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+        
+    /**
+     * Retourne les fiches de frais non validées entre deux mois
+     * 
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $mois       Mois sous la forme aaaamm
+     * 
+     * @return un tableau contenant toutes les lfiches non validées
+     */
+    public function getFichesNonValidées($mois1,$mois2)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT visiteur.nom as nom,'
+            . 'visiteur.prenom as prenom,'
+            . 'ficheFrais.dateModif as dateModif,'
+            . 'ficheFrais.nbJustificatifs as nbJustificatifs,'
+            . 'ficheFrais.montantValide as montantValide,'
+            . 'etat.libelle as libEtat'
+            . 'FROM fichefrais'
+            . 'INNER JOIN Etat ON ficheFrais.idEtat = Etat.id'
+            . 'INNER JOIN Visiteur on ficheFrais.idvisiteur = Visiteur.id'
+            . 'WHERE (ficheFrais.mois >= "moisUn" AND ficheFrais.mois <= "moisDeux"'
+            . 'AND ()etat.id = "CL" OR etat.id = "CR"'
+            . 'ORDER BY ficheFrais.mois'
+            );
+        $requetePrepare->bindParam(':moisDeux', $mois2, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':moisUn', $mois1, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    /**
+     * Retourne les pourcentages de fiches de frais par état
+     * 
+     *  @return un tableau contenant les pourcentages
+     */
+    public function percentFichesPerEtat() {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT concat(round((SELECT COUNT(*) from fichefrais where idetat="CL")/(SELECT count(*) from fichefrais)*100, 2)),'
+           . 'concat(round((SELECT COUNT(*) from fichefrais where idetat="CR")/(SELECT count(*) from fichefrais)*100, 2)),'
+           . 'concat(round((SELECT COUNT(*) from fichefrais where idetat="RB")/(SELECT count(*) from fichefrais)*100, 2)),'
+           . 'concat(round((SELECT COUNT(*) from fichefrais where idetat="VA")/(SELECT count(*) from fichefrais)*100, 2))'
+            
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
 }
 
    
